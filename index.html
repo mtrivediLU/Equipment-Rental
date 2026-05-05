@@ -3,560 +3,394 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Equipment Rental Executive Dashboard — A Senior Power BI Case Study by Mihir Trivedi</title>
-  <meta name="description" content="A Senior Power BI Developer portfolio case study covering semantic modeling, DAX, dynamic RLS, performance optimization, Power BI Service publishing, and AI-ready analytics for Copilot and Microsoft Fabric." />
+  <title>Equipment Rental Executive Dashboard | Power BI Engineering Case Study</title>
+  <meta name="description" content="A public Power BI engineering case study for NorthPeak Equipment Rentals, a fictional equipment rental business. Demonstrates semantic modeling, governed DAX, dynamic RLS, performance review, Power BI Service publishing, and AI-ready analytics." />
+  <meta name="author" content="Mihir Trivedi" />
+  <meta name="robots" content="index, follow" />
+
+  <meta property="og:title" content="Equipment Rental Executive Dashboard" />
+  <meta property="og:description" content="A premium Power BI portfolio case study showing semantic modeling, DAX engineering, dynamic RLS, performance review, Power BI Service publishing, and production BI architecture thinking." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.mihirtrivedi.tech" />
+  <meta property="og:site_name" content="Mihir Trivedi BI Portfolio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Equipment Rental Executive Dashboard" />
+  <meta name="twitter:description" content="A senior Power BI and BI architecture portfolio case study using synthetic demo data for a fictional equipment rental company." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- ===================== TOP NAV ===================== -->
-  <header class="nav" id="nav">
-    <div class="nav__inner">
-      <a href="#top" class="nav__brand" aria-label="Top of page">
-        <span class="nav__brand-mark" aria-hidden="true">MT</span>
-        <span class="nav__brand-text">
-          <span class="nav__brand-name">Mihir Trivedi</span>
-          <span class="nav__brand-sub">Power BI · Case Study</span>
+  <header class="site-header" id="top">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#overview" aria-label="Equipment Rental Executive Dashboard home">
+        <span class="brand__mark" aria-hidden="true">NP</span>
+        <span>
+          <span class="brand__title">NorthPeak BI Case Study</span>
+          <span class="brand__subtitle">Power BI Portfolio</span>
         </span>
       </a>
 
-      <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
-        <span></span><span></span><span></span>
+      <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-menu">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
 
-      <nav class="nav__menu" id="nav-menu" aria-label="Primary">
+      <div class="nav__links" id="nav-menu">
         <a href="#overview" data-nav>Overview</a>
-        <a href="#dashboard" data-nav>Dashboard</a>
+        <a href="#live-report" data-nav>Live Report</a>
         <a href="#architecture" data-nav>Architecture</a>
         <a href="#dax" data-nav>DAX</a>
-        <a href="#rls" data-nav>RLS</a>
+        <a href="#security" data-nav>Security</a>
         <a href="#performance" data-nav>Performance</a>
-        <a href="#ai" data-nav>AI&nbsp;Readiness</a>
-        <a href="#roadmap" data-nav>Roadmap</a>
+        <a href="#ai-readiness" data-nav>AI Readiness</a>
+        <a href="#production-extensions" data-nav>Production Extensions</a>
         <a href="#about" data-nav>About</a>
-      </nav>
-    </div>
+      </div>
+    </nav>
   </header>
 
-  <main id="top">
+  <main id="main">
+    <section class="hero section-dark" id="overview" aria-labelledby="hero-title">
+      <div class="hero__mesh" aria-hidden="true"></div>
+      <div class="float-shape float-shape--one" aria-hidden="true"></div>
+      <div class="float-shape float-shape--two" aria-hidden="true"></div>
 
-    <!-- ===================== HERO ===================== -->
-    <section class="hero">
-      <div class="hero__grid" aria-hidden="true"></div>
-      <div class="hero__inner container">
-        <p class="hero__eyebrow">
-          <span class="dot" aria-hidden="true"></span>
-          Senior Power BI · Semantic Modeling · Microsoft Fabric Readiness
-        </p>
-
-        <h1 class="hero__title">
-          Equipment Rental
-          <span class="hero__title-em">Executive Dashboard.</span>
-        </h1>
-
-        <p class="hero__lede">
-          A Senior Power BI Developer portfolio case study covering semantic modeling, DAX, dynamic row-level security, performance optimization, Power BI Service publishing, and AI-ready analytics for Copilot and Fabric data agents.
-        </p>
-
-        <div class="hero__badges">
-          <span class="badge">Power BI</span>
-          <span class="badge">DAX</span>
-          <span class="badge">Semantic Model</span>
-          <span class="badge">Dynamic RLS</span>
-          <span class="badge">Performance Analyzer</span>
-          <span class="badge">AI Readiness</span>
-          <span class="badge">Power BI Service</span>
-          <span class="badge">Executive Reporting</span>
-        </div>
-
-        <div class="hero__cta">
-          <a class="btn btn--primary" href="#dashboard">View Live Dashboard <span aria-hidden="true">→</span></a>
-          <a class="btn btn--ghost" href="https://docs.google.com/spreadsheets/d/1dtrb-VHVmBbxpXFAfDgzaimVbW-TI7t5BndNDbbMVEE/edit?gid=359496034#gid=359496034" target="_blank" rel="noopener">Explore Data Source</a>
-          <a class="btn btn--text" href="#overview">Review Technical Case Study</a>
-        </div>
-
-        <p class="hero__demo-note">
-          <strong>Portfolio demo only.</strong> The dataset, branches, and customers are synthetic. This is not Cooper Equipment Rentals data and contains no confidential information.
-        </p>
-      </div>
-    </section>
-
-    <!-- ===================== KPI STRIP ===================== -->
-    <section class="kpi-strip" aria-label="Headline dashboard KPIs">
-      <div class="container kpi-strip__grid">
-        <div class="kpi">
-          <span class="kpi__label">Total Revenue</span>
-          <span class="kpi__value">$224.7K</span>
-          <span class="kpi__meta">Non-cancelled rentals</span>
-        </div>
-        <div class="kpi">
-          <span class="kpi__label">Gross Margin</span>
-          <span class="kpi__value">$131.1K</span>
-          <span class="kpi__meta">Revenue − Estimated Cost</span>
-        </div>
-        <div class="kpi">
-          <span class="kpi__label">Gross Margin %</span>
-          <span class="kpi__value">58.4<small>%</small></span>
-          <span class="kpi__meta">DIVIDE-safe ratio</span>
-        </div>
-        <div class="kpi">
-          <span class="kpi__label">Rental Count</span>
-          <span class="kpi__value">213</span>
-          <span class="kpi__meta">Excludes cancellations</span>
-        </div>
-        <div class="kpi">
-          <span class="kpi__label">Utilization %</span>
-          <span class="kpi__value">68.5<small>%</small></span>
-          <span class="kpi__meta">Hours used ÷ available</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== 01 · EXECUTIVE SUMMARY ===================== -->
-    <section class="section" id="overview">
-      <div class="container">
-        <header class="section__header">
-          <span class="section__num">01</span>
-          <h2 class="section__title">Executive summary</h2>
-          <p class="section__kicker">Why this case study exists</p>
-        </header>
-
-        <div class="prose">
-          <p class="lede">
-            This demo was built to show end-to-end BI thinking — not just a polished dashboard surface. The goal was to design a <strong>governed semantic model</strong> with reusable measures, secure access, performance awareness, and AI-ready metadata that an enterprise team could actually adopt.
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <p class="eyebrow hero-reveal">Fictional demo company &bull; Synthetic data &bull; Public portfolio project</p>
+          <h1 class="hero__title hero-reveal" id="hero-title">Equipment Rental Executive Dashboard</h1>
+          <p class="hero__subtitle hero-reveal">
+            A Power BI engineering case study for NorthPeak Equipment Rentals, a fictional branch based rental business. Built to demonstrate semantic modeling, governed DAX, dynamic RLS, performance review, Power BI Service publishing, and AI ready analytics.
           </p>
-          <p>
-            The visible report is the smallest part of the work. Underneath it sits a clean star schema, a dedicated measures table, time intelligence anchored on a marked date table, dynamic row-level security driven by <code>USERPRINCIPALNAME()</code>, a Performance Analyzer pass, and metadata prepared so Copilot and Fabric data agents can reason against certified business measures rather than guessing from raw columns.
-          </p>
-          <p>
-            Every section below explains a deliberate decision — what was implemented, why it was done that way, and what the production version would look like inside a Microsoft Fabric medallion architecture.
-          </p>
-        </div>
-      </div>
-    </section>
 
-    <!-- ===================== 02 · LIVE DASHBOARD / DATA SOURCE TABS ===================== -->
-    <section class="section section--alt" id="dashboard">
-      <div class="container">
-        <header class="section__header">
-          <span class="section__num">02</span>
-          <h2 class="section__title">Live report &amp; data source</h2>
-          <p class="section__kicker">The artifact and the inputs that produced it</p>
-        </header>
-
-        <div class="tabs" data-tabs>
-          <div class="tabs__list" role="tablist" aria-label="Dashboard and data source">
-            <button class="tabs__tab is-active" role="tab" aria-selected="true" aria-controls="tab-dashboard" id="tab-btn-dashboard" data-tab-target="tab-dashboard">Live Power BI Report</button>
-            <button class="tabs__tab" role="tab" aria-selected="false" aria-controls="tab-data" id="tab-btn-data" data-tab-target="tab-data" tabindex="-1">Data Source</button>
+          <div class="hero__actions hero-reveal" aria-label="Primary actions">
+            <a class="button button--primary" href="#live-report">View Live Dashboard</a>
+            <a class="button button--secondary" href="https://docs.google.com/spreadsheets/d/1dtrb-VHVmBbxpXFAfDgzaimVbW-TI7t5BndNDbbMVEE/edit?gid=359496034#gid=359496034" target="_blank" rel="noopener">Explore Source Data</a>
+            <a class="button button--text" href="#architecture">Review Technical Build</a>
           </div>
 
-          <!-- TAB 1: Dashboard -->
-          <div class="tabs__panel is-active" role="tabpanel" id="tab-dashboard" aria-labelledby="tab-btn-dashboard">
-            <div class="tab-meta">
-              <p>Published via Power BI Service. Public embed used for portfolio demonstration only — RLS is not enforced in publish-to-web. Authenticated sharing scenarios (apps, secure embed) are described in <a href="#rls">Section 05</a>.</p>
-              <a class="btn btn--ghost btn--small" href="https://app.powerbi.com/view?r=eyJrIjoiMzg5NGJiMWItNmIyOC00MDBlLTkzZDUtOWUxOTIwOWVhNDIzIiwidCI6ImJkMTlkMDI5LTAyZWItNDk5Yi05NTMzLTk0MDhjZTk3OWJiYiJ9" target="_blank" rel="noopener">Open in new tab <span aria-hidden="true">↗</span></a>
-            </div>
+          <div class="hero__badges hero-reveal" aria-label="Project capabilities">
+            <span>Power BI</span>
+            <span>Semantic Model</span>
+            <span>Star Schema</span>
+            <span>DAX</span>
+            <span>Dynamic RLS</span>
+            <span>Performance Analyzer</span>
+            <span>AI Readiness</span>
+            <span>Power BI Service</span>
+            <span>Production Architecture</span>
+          </div>
+        </div>
 
-            <div class="iframe-frame">
-              <div class="iframe-frame__bar" aria-hidden="true">
-                <span class="iframe-frame__dot"></span>
-                <span class="iframe-frame__dot"></span>
-                <span class="iframe-frame__dot"></span>
-                <span class="iframe-frame__url">app.powerbi.com / Equipment Rental V2</span>
-              </div>
-              <div class="iframe-frame__container">
-                <iframe
-                  title="Equipment Rental V2"
-                  src="https://app.powerbi.com/view?r=eyJrIjoiMzg5NGJiMWItNmIyOC00MDBlLTkzZDUtOWUxOTIwOWVhNDIzIiwidCI6ImJkMTlkMDI5LTAyZWItNDk5Yi05NTMzLTk0MDhjZTk3OWJiYiJ9"
-                  frameborder="0"
-                  allowfullscreen="true"
-                  loading="lazy"></iframe>
-              </div>
-            </div>
+        <aside class="hero-card hero-reveal" aria-label="Project scope statement">
+          <div class="hero-card__topline">Public Portfolio Project</div>
+          <h2>BI product thinking, not only dashboard design.</h2>
+          <p>
+            NorthPeak Equipment Rentals is fictional. The dataset is synthetic demo data, and no confidential or real company data is used.
+          </p>
+          <div class="hero-card__stack" aria-label="Solution layers">
+            <span>Power Query import</span>
+            <span>Semantic model</span>
+            <span>Reusable measures</span>
+            <span>Dynamic security</span>
+            <span>Service publishing</span>
+            <span>AI metadata</span>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-            <ul class="tab-features">
-              <li><strong>5 KPI cards</strong> — Revenue, Gross Margin, GM%, Rental Count, Utilization%</li>
-              <li><strong>Equipment Category Performance</strong> matrix (heaviest visual; flagged in Section 06)</li>
-              <li><strong>Revenue Trend by Month</strong> line chart</li>
-              <li><strong>Revenue by Branch</strong> bar chart</li>
-              <li><strong>Slicers</strong> — YearMonth, Region, Category, Segment</li>
+    <section class="metric-band" aria-label="Dashboard headline metrics">
+      <div class="container metric-band__grid">
+        <article class="metric-card reveal">
+          <span class="metric-card__label">Total Revenue</span>
+          <strong class="metric-value" data-value="224.7" data-prefix="$" data-suffix="K" data-decimals="1">$0.0K</strong>
+        </article>
+        <article class="metric-card reveal">
+          <span class="metric-card__label">Gross Margin</span>
+          <strong class="metric-value" data-value="131.1" data-prefix="$" data-suffix="K" data-decimals="1">$0.0K</strong>
+        </article>
+        <article class="metric-card reveal">
+          <span class="metric-card__label">Gross Margin %</span>
+          <strong class="metric-value" data-value="58.4" data-suffix="%" data-decimals="1">0.0%</strong>
+        </article>
+        <article class="metric-card reveal">
+          <span class="metric-card__label">Rental Count</span>
+          <strong class="metric-value" data-value="213" data-decimals="0">0</strong>
+        </article>
+        <article class="metric-card reveal">
+          <span class="metric-card__label">Utilization %</span>
+          <strong class="metric-value" data-value="68.5" data-suffix="%" data-decimals="1">0.0%</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="summary-title">
+      <div class="container split-layout">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Executive Summary</p>
+          <h2 id="summary-title">Beyond the Dashboard</h2>
+        </div>
+        <div class="summary-panel reveal">
+          <p class="lead">
+            This case study was designed to show the difference between building a dashboard and engineering a trusted BI product.
+          </p>
+          <p>
+            The visible Power BI report is only one layer. Behind it are modeling decisions, reusable KPI definitions, role based security logic, performance validation, and AI ready semantic metadata. The project demonstrates BI engineering thinking across semantic modeling, DAX engineering, dynamic RLS, Power BI Service publishing, performance analysis, and production grade BI architecture.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="live-report" aria-labelledby="live-report-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Live Report and Data Source</p>
+          <h2 id="live-report-title">Live Report and Data Source</h2>
+          <p>Explore the published Power BI artifact and the synthetic source data used to build the semantic model.</p>
+        </div>
+
+        <div class="tabs reveal" data-tabs>
+          <div class="tab-list" role="tablist" aria-label="Live report and source data tabs">
+            <button class="tab-button is-active" id="tab-report-button" type="button" role="tab" aria-selected="true" aria-controls="tab-report" data-tab-target="tab-report">Live Power BI Report</button>
+            <button class="tab-button" id="tab-source-button" type="button" role="tab" aria-selected="false" aria-controls="tab-source" data-tab-target="tab-source" tabindex="-1">Source Data</button>
+          </div>
+
+          <div class="tab-panels">
+            <section class="tab-panel is-active" id="tab-report" role="tabpanel" aria-labelledby="tab-report-button">
+              <div class="tab-intro">
+                <div>
+                  <h3>Executive dashboard embedded from Power BI Service.</h3>
+                  <p>This is a public demo embed. Public publish to web is anonymous, so user specific RLS is not enforced in the embedded view.</p>
+                </div>
+                <a class="button button--secondary button--small" href="https://app.powerbi.com/view?r=eyJrIjoiMzg5NGJiMWItNmIyOC00MDBlLTkzZDUtOWUxOTIwOWVhNDIzIiwidCI6ImJkMTlkMDI5LTAyZWItNDk5Yi05NTMzLTk0MDhjZTk3OWJiYiJ9" target="_blank" rel="noopener">Open in New Tab</a>
+              </div>
+
+              <div class="report-frame" aria-label="Embedded Power BI report">
+                <iframe title="Equipment Rental V2" src="https://app.powerbi.com/view?r=eyJrIjoiMzg5NGJiMWItNmIyOC00MDBlLTkzZDUtOWUxOTIwOWVhNDIzIiwidCI6ImJkMTlkMDI5LTAyZWItNDk5Yi05NTMzLTk0MDhjZTk3OWJiYiJ9" frameborder="0" allowfullscreen="true" loading="lazy"></iframe>
+              </div>
+
+              <div class="feature-grid">
+                <article>
+                  <h4>Report Visuals</h4>
+                  <p>Equipment Category Performance matrix, Revenue Trend by Month line chart, Revenue by Branch bar chart, KPI cards, and business slicers.</p>
+                </article>
+                <article>
+                  <h4>Interactive Filters</h4>
+                  <p>Slicers for YearMonth, Region, Category, and Segment support executive exploration without exposing technical model fields.</p>
+                </article>
+              </div>
+            </section>
+
+            <section class="tab-panel" id="tab-source" role="tabpanel" aria-labelledby="tab-source-button" hidden>
+              <div class="tab-intro">
+                <div>
+                  <h3>Synthetic Excel based source data hosted in Google Sheets.</h3>
+                  <p>The dataset represents branch based equipment rental transactions, customers, fleet categories, sales representatives, regions, and security mappings for a fictional demo company.</p>
+                </div>
+                <a class="button button--secondary button--small" href="https://docs.google.com/spreadsheets/d/1dtrb-VHVmBbxpXFAfDgzaimVbW-TI7t5BndNDbbMVEE/edit?gid=359496034#gid=359496034" target="_blank" rel="noopener">Open Google Sheet</a>
+              </div>
+
+              <div class="table-list" aria-label="Tables used in the semantic model">
+                <span>FactRentalsTable</span>
+                <span>DimDateTable</span>
+                <span>DimCustomerTable</span>
+                <span>DimBranchTable</span>
+                <span>DimEquipmentTable</span>
+                <span>DimSalesRepTable</span>
+                <span>SecurityUsersTable</span>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="architecture" aria-labelledby="architecture-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Technical Architecture</p>
+          <h2 id="architecture-title">Semantic Model Architecture</h2>
+          <p>A clean star schema keeps business slicing predictable while centralizing calculations through a governed measures layer.</p>
+        </div>
+
+        <div class="architecture-grid">
+          <div class="model-diagram reveal" aria-label="Semantic model diagram">
+            <svg class="model-diagram__lines" viewBox="0 0 100 70" role="img" aria-label="Relationship connectors from dimensions to fact table">
+              <path d="M50 15 L50 35" />
+              <path d="M20 31 L42 39" />
+              <path d="M80 31 L58 39" />
+              <path d="M23 58 L43 49" />
+              <path d="M77 58 L57 49" />
+              <path class="line-security" d="M82 15 L82 26" />
+            </svg>
+            <div class="model-node node-date">DimDateTable</div>
+            <div class="model-node node-customer">DimCustomerTable</div>
+            <div class="model-node node-branch">DimBranchTable</div>
+            <div class="model-node node-equipment">DimEquipmentTable</div>
+            <div class="model-node node-sales">DimSalesRepTable</div>
+            <div class="model-node node-security">SecurityUsersTable</div>
+            <div class="model-node node-fact">
+              <span>Central Fact</span>
+              <strong>FactRentalsTable</strong>
+            </div>
+          </div>
+
+          <div class="architecture-notes reveal">
+            <ul class="check-list">
+              <li>FactRentalsTable is the transaction grain.</li>
+              <li>Dimensions support business slicing by date, customer, branch, equipment, and sales rep.</li>
+              <li>Relationships are one to many from dimensions into the fact table.</li>
+              <li>Single direction filtering keeps behavior predictable.</li>
+              <li>SecurityUsersTable supports dynamic RLS.</li>
+              <li>Technical fields are hidden from report users.</li>
+              <li>Certified measures are exposed through _Measures.</li>
             </ul>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <!-- TAB 2: Data Source -->
-          <div class="tabs__panel" role="tabpanel" id="tab-data" aria-labelledby="tab-btn-data" hidden>
-            <div class="tab-meta">
-              <p>Synthetic dataset hosted in Google Sheets. Imported via Power Query, type-validated, and shaped into a star schema before being loaded into the semantic model.</p>
-              <a class="btn btn--ghost btn--small" href="https://docs.google.com/spreadsheets/d/1dtrb-VHVmBbxpXFAfDgzaimVbW-TI7t5BndNDbbMVEE/edit?gid=359496034#gid=359496034" target="_blank" rel="noopener">Open dataset in new tab <span aria-hidden="true">↗</span></a>
+    <section class="section" aria-labelledby="implemented-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Implemented Scope</p>
+          <h2 id="implemented-title">Implemented in This Demo</h2>
+          <p>These are the actual Power BI implementation items completed for the public portfolio project.</p>
+        </div>
+
+        <div class="implemented-grid">
+          <article class="implemented-card reveal">Power Query import from Excel based source data</article>
+          <article class="implemented-card reveal">Data type validation</article>
+          <article class="implemented-card reveal">Clean star schema semantic model</article>
+          <article class="implemented-card reveal">FactRentalsTable as the central fact table</article>
+          <article class="implemented-card reveal">Dimension tables for date, customer, branch, equipment, and sales rep</article>
+          <article class="implemented-card reveal">Relationship cleanup after import</article>
+          <article class="implemented-card reveal">Single direction filtering model</article>
+          <article class="implemented-card reveal">Marked DimDateTable as the official date table</article>
+          <article class="implemented-card reveal">Created dedicated _Measures table</article>
+          <article class="implemented-card reveal">Created reusable DAX measures</article>
+          <article class="implemented-card reveal">Created financial, operational, and time intelligence KPIs</article>
+          <article class="implemented-card reveal">Hidden technical keys and raw fact fields from report view</article>
+          <article class="implemented-card reveal">Business friendly fields exposed for users</article>
+          <article class="implemented-card reveal">Dynamic region based RLS using SecurityUsersTable</article>
+          <article class="implemented-card reveal">RLS testing in Power BI Desktop using View As</article>
+          <article class="implemented-card reveal">Power BI Service publishing</article>
+          <article class="implemented-card reveal">Public Power BI web embed for demo viewing</article>
+          <article class="implemented-card reveal">Performance Analyzer review</article>
+          <article class="implemented-card reveal">Semantic model descriptions and synonyms for AI readiness</article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="dax" aria-labelledby="dax-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">DAX and KPI Engineering</p>
+          <h2 id="dax-title">DAX and KPI Engineering</h2>
+          <p>The measures were centralized in a dedicated _Measures table to support consistency, governance, and reuse across visuals.</p>
+        </div>
+
+        <div class="kpi-engineering-grid">
+          <article class="topic-card reveal">
+            <h3>Financial KPIs</h3>
+            <p>Total Revenue, Gross Margin, Gross Margin %, and revenue trend measures are defined once and reused throughout the report.</p>
+          </article>
+          <article class="topic-card reveal">
+            <h3>Operational KPIs</h3>
+            <p>Rental Count and Utilization % translate transaction and availability data into decision ready metrics.</p>
+          </article>
+          <article class="topic-card reveal">
+            <h3>Time Intelligence</h3>
+            <p>Month over month logic is anchored on DimDateTable so trend calculations remain consistent with slicers and reporting periods.</p>
+          </article>
+        </div>
+
+        <div class="code-grid">
+          <article class="code-card reveal">
+            <div class="code-card__header">
+              <h3>Total Revenue</h3>
+              <button class="copy-button" type="button" data-copy>Copy</button>
             </div>
-
-            <div class="data-grid">
-              <div class="data-card">
-                <p class="data-card__type">Fact</p>
-                <h3>FactRentalsTable</h3>
-                <p>Rental transactions. Central fact, single-direction filtered by every dimension below.</p>
-              </div>
-              <div class="data-card">
-                <p class="data-card__type">Dimension</p>
-                <h3>DimDateTable</h3>
-                <p>Marked as the official date table. Anchors all time intelligence.</p>
-              </div>
-              <div class="data-card">
-                <p class="data-card__type">Dimension</p>
-                <h3>DimCustomerTable</h3>
-                <p>Account / segment attributes. Joined on CustomerID.</p>
-              </div>
-              <div class="data-card">
-                <p class="data-card__type">Dimension</p>
-                <h3>DimBranchTable</h3>
-                <p>Branch &amp; region. The RLS filter point. Joined on BranchID.</p>
-              </div>
-              <div class="data-card">
-                <p class="data-card__type">Dimension</p>
-                <h3>DimEquipmentTable</h3>
-                <p>Fleet category &amp; equipment metadata. Joined on EquipmentID.</p>
-              </div>
-              <div class="data-card">
-                <p class="data-card__type">Dimension</p>
-                <h3>DimSalesRepTable</h3>
-                <p>Sales rep attribution. Joined on SalesRepID.</p>
-              </div>
-              <div class="data-card data-card--security">
-                <p class="data-card__type">Security</p>
-                <h3>SecurityUsersTable</h3>
-                <p>Email → Region → Role mapping. Hidden from report users. Powers dynamic RLS.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== 03 · ARCHITECTURE ===================== -->
-    <section class="section section--dark" id="architecture">
-      <div class="container">
-        <header class="section__header section__header--dark">
-          <span class="section__num">03</span>
-          <h2 class="section__title">Technical architecture</h2>
-          <p class="section__kicker">Star schema with security mapping side-car</p>
-        </header>
-
-        <div class="schema">
-          <svg class="schema__svg" viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Star schema diagram showing FactRentalsTable in the center connected to five dimension tables, with SecurityUsersTable shown separately as the RLS mapping side-car">
-            <defs>
-              <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-                <path d="M0,0 L8,4 L0,8 z" fill="rgba(45, 212, 191, 0.85)"/>
-              </marker>
-            </defs>
-
-            <!-- Connecting lines: dimensions → fact -->
-            <line x1="200" y1="120" x2="430" y2="280" class="schema__line" />
-            <line x1="500" y1="80"  x2="500" y2="260" class="schema__line" />
-            <line x1="800" y1="120" x2="570" y2="280" class="schema__line" />
-            <line x1="180" y1="430" x2="430" y2="340" class="schema__line" />
-            <line x1="820" y1="430" x2="570" y2="340" class="schema__line" />
-
-            <!-- Security side-car (dashed) -->
-            <line x1="500" y1="540" x2="500" y2="380" class="schema__line schema__line--dashed" marker-end="url(#arrow)" />
-
-            <!-- FACT TABLE (center) -->
-            <g class="schema__node schema__node--fact">
-              <rect x="400" y="260" width="200" height="100" rx="6" />
-              <text x="500" y="295" text-anchor="middle" class="schema__node-type">FACT</text>
-              <text x="500" y="325" text-anchor="middle" class="schema__node-title">FactRentalsTable</text>
-              <text x="500" y="345" text-anchor="middle" class="schema__node-sub">Central transactional grain</text>
-            </g>
-
-            <!-- Dim Date (top-left) -->
-            <g class="schema__node">
-              <rect x="100" y="60" width="200" height="80" rx="6" />
-              <text x="200" y="90" text-anchor="middle" class="schema__node-type">DIM · marked date</text>
-              <text x="200" y="115" text-anchor="middle" class="schema__node-title">DimDateTable</text>
-            </g>
-
-            <!-- Dim Customer (top-center) -->
-            <g class="schema__node">
-              <rect x="400" y="20" width="200" height="80" rx="6" />
-              <text x="500" y="50" text-anchor="middle" class="schema__node-type">DIM</text>
-              <text x="500" y="75" text-anchor="middle" class="schema__node-title">DimCustomerTable</text>
-            </g>
-
-            <!-- Dim Branch (top-right) -->
-            <g class="schema__node schema__node--accent">
-              <rect x="700" y="60" width="200" height="80" rx="6" />
-              <text x="800" y="90" text-anchor="middle" class="schema__node-type">DIM · RLS filter point</text>
-              <text x="800" y="115" text-anchor="middle" class="schema__node-title">DimBranchTable</text>
-            </g>
-
-            <!-- Dim Equipment (bottom-left) -->
-            <g class="schema__node">
-              <rect x="80" y="380" width="200" height="80" rx="6" />
-              <text x="180" y="410" text-anchor="middle" class="schema__node-type">DIM</text>
-              <text x="180" y="435" text-anchor="middle" class="schema__node-title">DimEquipmentTable</text>
-            </g>
-
-            <!-- Dim SalesRep (bottom-right) -->
-            <g class="schema__node">
-              <rect x="720" y="380" width="200" height="80" rx="6" />
-              <text x="820" y="410" text-anchor="middle" class="schema__node-type">DIM</text>
-              <text x="820" y="435" text-anchor="middle" class="schema__node-title">DimSalesRepTable</text>
-            </g>
-
-            <!-- Security side-car (bottom-center) -->
-            <g class="schema__node schema__node--security">
-              <rect x="380" y="540" width="240" height="80" rx="6" />
-              <text x="500" y="570" text-anchor="middle" class="schema__node-type">SECURITY · LOOKUPVALUE</text>
-              <text x="500" y="595" text-anchor="middle" class="schema__node-title">SecurityUsersTable</text>
-            </g>
-          </svg>
-
-          <ul class="schema__legend">
-            <li><span class="dot dot--solid"></span> Active 1-to-many star relationship</li>
-            <li><span class="dot dot--dashed"></span> RLS lookup path (no relationship; resolved via DAX)</li>
-            <li><span class="dot dot--accent"></span> Security filter point — branch, not fact</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== 04 · SEMANTIC MODELING ===================== -->
-    <section class="section" id="modeling">
-      <div class="container">
-        <header class="section__header">
-          <span class="section__num">04</span>
-          <h2 class="section__title">Semantic modeling decisions</h2>
-          <p class="section__kicker">Why the model looks the way it does</p>
-        </header>
-
-        <div class="decisions">
-          <article class="decision">
-            <h3>Star schema over flat or snowflake</h3>
-            <p>A clean star keeps relationships predictable, makes filter propagation obvious, and gives Copilot and Q&amp;A a graph they can reason against. Filtering remains single-direction — bi-directional was reviewed and rejected to avoid ambiguity.</p>
-          </article>
-          <article class="decision">
-            <h3>Hidden technical fields, exposed business fields</h3>
-            <p>Surrogate keys, raw foreign keys, and raw fact columns are hidden from Report view. Only certified, business-friendly attributes and measures are surfaced. Self-service users build with the right vocabulary; AI tools answer against the right columns.</p>
-          </article>
-          <article class="decision">
-            <h3>DimDateTable marked as the date table</h3>
-            <p>Marking the date table is what makes <code>SAMEPERIODLASTYEAR</code>, <code>DATESYTD</code>, and <code>DATEADD</code> behave correctly. Without it, time intelligence drifts in subtle ways that only surface during month-end reviews.</p>
-          </article>
-          <article class="decision">
-            <h3>Dedicated _Measures table</h3>
-            <p>All DAX lives in a single empty table organized into folders (Financial · Operational · Time Intelligence). It separates measure definitions from physical columns, keeps the model readable in Tabular Editor, and makes documentation/endorsement straightforward.</p>
-          </article>
-          <article class="decision">
-            <h3>Auto-detected relationships reviewed and cleaned</h3>
-            <p>Power BI's auto-detection created a couple of relationships that didn't match the intended grain. Each was inspected, removed where wrong, and re-created explicitly so every join in the model is intentional.</p>
-          </article>
-          <article class="decision">
-            <h3>YearMonthSort for natural ordering</h3>
-            <p>A numeric sort column (<code>YearMonthSort</code>) drives the textual <code>YearMonth</code> field so visuals and slicers order chronologically rather than alphabetically — the kind of detail executives notice immediately when it's wrong.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== 05 · DAX & KPIs ===================== -->
-    <section class="section section--alt" id="dax">
-      <div class="container">
-        <header class="section__header">
-          <span class="section__num">05</span>
-          <h2 class="section__title">DAX &amp; KPI engineering</h2>
-          <p class="section__kicker">Reusable measures organized by intent</p>
-        </header>
-
-        <p class="section__intro">
-          Every measure is defined once and reused across visuals. Cancelled rentals are filtered consistently in a base measure rather than re-applied at the visual level. <code>DIVIDE</code> is used everywhere a ratio could face a zero denominator. Time intelligence relies on the marked date table — never on hand-rolled date math.
-        </p>
-
-        <div class="accordion" data-accordion>
-
-          <!-- Financial -->
-          <div class="accordion__item is-open" data-accordion-item>
-            <button class="accordion__head" aria-expanded="true" data-accordion-trigger>
-              <span class="accordion__head-label">
-                <span class="accordion__head-tag">Financial</span>
-                <span>Revenue, cost, and margin measures</span>
-              </span>
-              <span class="accordion__head-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="accordion__body">
-              <ul class="measure-list">
-                <li><span>Total Revenue</span><span>Sum of revenue on non-cancelled rentals</span></li>
-                <li><span>Rental Revenue</span><span>Rental-line component only</span></li>
-                <li><span>Service Revenue</span><span>Service-line component only</span></li>
-                <li><span>Damage Waiver Revenue</span><span>Damage-waiver component only</span></li>
-                <li><span>Estimated Cost</span><span>Cost basis for margin</span></li>
-                <li><span>Gross Margin</span><span>Total Revenue − Estimated Cost</span></li>
-                <li><span>Gross Margin %</span><span>DIVIDE-safe ratio</span></li>
-              </ul>
-
-              <div class="code">
-                <div class="code__head">
-                  <span class="code__lang">DAX · Measure</span>
-                  <button class="code__copy" data-copy>Copy</button>
-                </div>
-<pre><code>Total Revenue =
-CALCULATE (
-    SUM ( FactRentalsTable[Revenue] ),
-    FactRentalsTable[IsCancelled] = FALSE
+            <pre><code>Total Revenue =
+CALCULATE(
+    SUM(FactRentalsTable[TotalRevenue]),
+    FactRentalsTable[IsCancelled] = FALSE()
 )</code></pre>
-              </div>
+          </article>
 
-              <div class="code">
-                <div class="code__head">
-                  <span class="code__lang">DAX · Measure</span>
-                  <button class="code__copy" data-copy>Copy</button>
-                </div>
-<pre><code>Gross Margin % =
-DIVIDE (
+          <article class="code-card reveal">
+            <div class="code-card__header">
+              <h3>Gross Margin %</h3>
+              <button class="copy-button" type="button" data-copy>Copy</button>
+            </div>
+            <pre><code>Gross Margin % =
+DIVIDE(
     [Gross Margin],
     [Total Revenue]
 )</code></pre>
-              </div>
+          </article>
+
+          <article class="code-card reveal">
+            <div class="code-card__header">
+              <h3>Utilization %</h3>
+              <button class="copy-button" type="button" data-copy>Copy</button>
             </div>
-          </div>
-
-          <!-- Operational -->
-          <div class="accordion__item" data-accordion-item>
-            <button class="accordion__head" aria-expanded="false" data-accordion-trigger>
-              <span class="accordion__head-label">
-                <span class="accordion__head-tag">Operational</span>
-                <span>Volume, rate, and utilization measures</span>
-              </span>
-              <span class="accordion__head-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="accordion__body">
-              <ul class="measure-list">
-                <li><span>Rental Count</span><span>Distinct non-cancelled rentals</span></li>
-                <li><span>Cancelled Rental Count</span><span>Visibility into lost demand</span></li>
-                <li><span>Average Daily Rate</span><span>Revenue per rental day</span></li>
-                <li><span>Total Utilization Hours</span><span>Hours billed</span></li>
-                <li><span>Total Available Hours</span><span>Capacity baseline</span></li>
-                <li><span>Utilization %</span><span>Used ÷ available, DIVIDE-safe</span></li>
-                <li><span>Revenue per Rental</span><span>Average revenue per transaction</span></li>
-              </ul>
-
-              <div class="code">
-                <div class="code__head">
-                  <span class="code__lang">DAX · Measure</span>
-                  <button class="code__copy" data-copy>Copy</button>
-                </div>
-<pre><code>Utilization % =
-DIVIDE (
+            <pre><code>Utilization % =
+DIVIDE(
     [Total Utilization Hours],
     [Total Available Hours]
 )</code></pre>
-              </div>
+          </article>
+
+          <article class="code-card reveal">
+            <div class="code-card__header">
+              <h3>Revenue MoM %</h3>
+              <button class="copy-button" type="button" data-copy>Copy</button>
             </div>
-          </div>
-
-          <!-- Time Intelligence -->
-          <div class="accordion__item" data-accordion-item>
-            <button class="accordion__head" aria-expanded="false" data-accordion-trigger>
-              <span class="accordion__head-label">
-                <span class="accordion__head-tag">Time Intelligence</span>
-                <span>YTD, prior-period, MoM measures</span>
-              </span>
-              <span class="accordion__head-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="accordion__body">
-              <ul class="measure-list">
-                <li><span>Total Revenue YTD</span><span>Year-to-date revenue</span></li>
-                <li><span>Gross Margin YTD</span><span>Year-to-date margin</span></li>
-                <li><span>Rental Count YTD</span><span>Year-to-date volume</span></li>
-                <li><span>Previous Month Revenue</span><span>Comparison baseline</span></li>
-                <li><span>Revenue MoM Change</span><span>Absolute month-over-month delta</span></li>
-                <li><span>Revenue MoM %</span><span>Percentage MoM</span></li>
-                <li><span>Previous Month Gross Margin %</span><span>Margin baseline</span></li>
-                <li><span>Gross Margin % MoM Change</span><span>Margin trend signal</span></li>
-              </ul>
-
-              <div class="code">
-                <div class="code__head">
-                  <span class="code__lang">DAX · Measure</span>
-                  <button class="code__copy" data-copy>Copy</button>
-                </div>
-<pre><code>Revenue MoM % =
-VAR _Curr = [Total Revenue]
-VAR _Prev = [Previous Month Revenue]
-RETURN
-    DIVIDE ( _Curr - _Prev, _Prev )</code></pre>
-              </div>
-            </div>
-          </div>
-
+            <pre><code>Revenue MoM % =
+DIVIDE(
+    [Revenue MoM Change],
+    [Previous Month Revenue]
+)</code></pre>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- ===================== 06 · DYNAMIC RLS ===================== -->
-    <section class="section section--dark" id="rls">
+    <section class="section" id="security" aria-labelledby="security-title">
       <div class="container">
-        <header class="section__header section__header--dark">
-          <span class="section__num">06</span>
-          <h2 class="section__title">Dynamic row-level security</h2>
-          <p class="section__kicker">One role. One filter. The schema does the rest.</p>
-        </header>
-
-        <div class="rls-flow" aria-label="RLS flow">
-          <div class="rls-flow__step">
-            <span class="rls-flow__num">1</span>
-            <h4>User opens report</h4>
-            <p>Authenticated session via Power BI Service.</p>
-          </div>
-          <div class="rls-flow__arrow" aria-hidden="true">→</div>
-          <div class="rls-flow__step">
-            <span class="rls-flow__num">2</span>
-            <h4>USERPRINCIPALNAME()</h4>
-            <p>DAX captures the user's email at evaluation time.</p>
-          </div>
-          <div class="rls-flow__arrow" aria-hidden="true">→</div>
-          <div class="rls-flow__step">
-            <span class="rls-flow__num">3</span>
-            <h4>SecurityUsersTable lookup</h4>
-            <p>Email mapped to allowed Region (or "All").</p>
-          </div>
-          <div class="rls-flow__arrow" aria-hidden="true">→</div>
-          <div class="rls-flow__step">
-            <span class="rls-flow__num">4</span>
-            <h4>DimBranchTable filtered</h4>
-            <p>Branches outside the allowed region are removed.</p>
-          </div>
-          <div class="rls-flow__arrow" aria-hidden="true">→</div>
-          <div class="rls-flow__step">
-            <span class="rls-flow__num">5</span>
-            <h4>FactRentalsTable filtered</h4>
-            <p>Star schema propagates branch filter to transactions.</p>
-          </div>
+        <div class="section-heading reveal">
+          <p class="eyebrow">Dynamic Row Level Security</p>
+          <h2 id="security-title">Dynamic Region Based RLS</h2>
+          <p>Security is modeled as a data driven access pattern instead of hardcoded filters per user.</p>
         </div>
 
-        <div class="split">
-          <div class="split__col">
-            <h3 class="h3">Why filter the dimension, not the fact</h3>
-            <p>
-              The security filter sits on <code>DimBranchTable</code> rather than directly on the fact. The branch dimension naturally filters rental transactions through its existing relationship — that's what the star schema is for. This is more scalable and far more maintainable than a static role per region, and it scales cleanly when new regions, branches, or roles are added.
-            </p>
+        <div class="security-flow reveal" aria-label="Dynamic RLS flow">
+          <span>User opens report</span>
+          <span>USERPRINCIPALNAME captures email</span>
+          <span>SecurityUsersTable maps email to region</span>
+          <span>DimBranchTable filters allowed branches</span>
+          <span>FactRentalsTable returns permitted rental transactions</span>
+        </div>
 
-            <h3 class="h3">Role definition</h3>
-            <p>Single role: <code>Dynamic Region RLS</code>. Filter applied at <code>DimBranchTable</code>:</p>
-
-            <div class="code code--dark">
-              <div class="code__head">
-                <span class="code__lang">DAX · RLS Filter</span>
-                <button class="code__copy" data-copy>Copy</button>
-              </div>
-<pre><code>VAR CurrentUser =
-    USERPRINCIPALNAME ()
+        <div class="security-grid">
+          <article class="code-card reveal">
+            <div class="code-card__header">
+              <h3>RLS DAX</h3>
+              <button class="copy-button" type="button" data-copy>Copy</button>
+            </div>
+            <pre><code>VAR CurrentUser =
+    USERPRINCIPALNAME()
 
 VAR AllowedRegion =
-    LOOKUPVALUE (
+    LOOKUPVALUE(
         SecurityUsersTable[Region],
         SecurityUsersTable[Email], CurrentUser
     )
@@ -564,342 +398,314 @@ VAR AllowedRegion =
 RETURN
     AllowedRegion = "All"
         || DimBranchTable[Region] = AllowedRegion</code></pre>
-            </div>
+          </article>
+
+          <div class="validation-stack">
+            <article class="validation-card reveal">
+              <span>Executive User</span>
+              <strong>$224.7K</strong>
+              <p>Sees all regions and full demo revenue.</p>
+            </article>
+            <article class="validation-card reveal">
+              <span>Central Manager</span>
+              <strong>About $88.3K</strong>
+              <p>Sees Central region only.</p>
+            </article>
+            <article class="validation-card reveal">
+              <span>West Manager</span>
+              <strong>About $61.4K</strong>
+              <p>Sees West region only.</p>
+            </article>
           </div>
+        </div>
 
-          <div class="split__col">
-            <h3 class="h3">Test results</h3>
-            <table class="rls-test">
-              <thead>
-                <tr><th>Test user</th><th>Sees</th><th>Revenue</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>executive@cooper-demo.ca</td><td>All regions</td><td>$224.7K</td></tr>
-                <tr><td>central.manager@cooper-demo.ca</td><td>Central only</td><td>~$88.3K</td></tr>
-                <tr><td>west.manager@cooper-demo.ca</td><td>West only</td><td>~$61.4K</td></tr>
-                <tr><td>prairie.manager@cooper-demo.ca</td><td>Prairie only</td><td>filtered</td></tr>
-                <tr><td>north.manager@cooper-demo.ca</td><td>North only</td><td>filtered</td></tr>
-              </tbody>
-            </table>
-            <p class="rls-test__note">Branch slicer values change with the test user. The dynamic role is working — one role definition handles every region.</p>
+        <p class="notice reveal">
+          For this public portfolio embed, RLS is not enforced because publish to web is anonymous. In production, authenticated Power BI Apps, secure embed, or Power BI Embedded would be used to enforce RLS.
+        </p>
+      </div>
+    </section>
 
-            <h3 class="h3">Production sharing</h3>
-            <ul class="checklist">
-              <li>Assign Entra ID security groups (not individuals) to <code>Dynamic Region RLS</code> in Power BI Service.</li>
-              <li>Distribute via Power BI App or secure embed — Viewers only, so RLS is enforced.</li>
-              <li>Avoid Publish to Web for any data that is not explicitly public.</li>
-            </ul>
+    <section class="section section-dark" id="performance" aria-labelledby="performance-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Performance Review</p>
+          <h2 id="performance-title">Performance Analyzer Review</h2>
+          <p>Performance work starts with evidence: visual timing, query behavior, and model design signals.</p>
+        </div>
 
-            <p class="callout callout--warn">
-              <strong>Note on this demo:</strong> RLS is <em>not</em> enforced in the public embed above because Publish-to-Web is anonymous. In an authenticated Power BI App, the same model would deliver region-filtered views automatically.
-            </p>
+        <div class="findings-grid">
+          <article class="finding-card reveal">
+            <h3>No major DAX bottleneck found.</h3>
+            <p>Query execution was lightweight for the current demo size and metric complexity.</p>
+          </article>
+          <article class="finding-card reveal">
+            <h3>Matrix visual was the heaviest.</h3>
+            <p>Equipment Category Performance had the largest visual cost, so optimization would start with visual simplification.</p>
+          </article>
+          <article class="finding-card reveal">
+            <h3>KPI cards were acceptable.</h3>
+            <p>KPI cards generate separate visual queries, which is acceptable for this demo and easy to revisit at scale.</p>
+          </article>
+          <article class="finding-card reveal">
+            <h3>Model cleanup supports performance.</h3>
+            <p>Hidden technical fields, single direction filtering, and reusable measures reduce ambiguity and report sprawl.</p>
+          </article>
+        </div>
+
+        <div class="tuning-panel reveal">
+          <h3>Production tuning checklist</h3>
+          <div class="pill-cloud">
+            <span>DAX Studio</span>
+            <span>VertiPaq Analyzer</span>
+            <span>Column cardinality review</span>
+            <span>Remove unused columns</span>
+            <span>Aggregations</span>
+            <span>Incremental refresh</span>
+            <span>Calculation groups</span>
+            <span>Field parameters</span>
+            <span>Report page optimization</span>
+            <span>Upstream SQL or dbt optimization</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== 07 · PERFORMANCE ===================== -->
-    <section class="section" id="performance">
+    <section class="section" id="ai-readiness" aria-labelledby="ai-title">
       <div class="container">
-        <header class="section__header">
-          <span class="section__num">07</span>
-          <h2 class="section__title">Performance review</h2>
-          <p class="section__kicker">Measured first, optimized second</p>
-        </header>
+        <div class="section-heading reveal">
+          <p class="eyebrow">AI Readiness</p>
+          <h2 id="ai-title">AI Ready Semantic Model</h2>
+          <p>AI readiness is not just about clicking Copilot. It starts with semantic model quality.</p>
+        </div>
 
-        <div class="prose">
-          <p class="lede">
-            Performance Analyzer was used to record report interactions and separate <strong>DAX query time</strong>, <strong>visual rendering time</strong>, and <strong>other overhead</strong>. The point isn't to chase every millisecond — it's to know where the time actually goes before rewriting anything.
+        <div class="ai-grid">
+          <article class="topic-card reveal">
+            <h3>Model Preparation</h3>
+            <ul class="check-list">
+              <li>Hidden technical fields</li>
+              <li>Certified measures</li>
+              <li>Measure descriptions</li>
+              <li>Synonyms for business language</li>
+              <li>Clean star schema</li>
+              <li>Explicit KPI definitions</li>
+              <li>Natural language question patterns</li>
+              <li>Preparedness for Copilot, Q&amp;A, and Fabric data agents</li>
+            </ul>
+          </article>
+
+          <article class="semantic-examples reveal">
+            <h3>Semantic metadata examples</h3>
+            <div class="metadata-list">
+              <div>
+                <strong>Total Revenue</strong>
+                <p>Description: Total revenue from non cancelled rental transactions, including rental, service, and damage waiver revenue.</p>
+                <p>Synonyms: revenue, sales, total sales, rental sales</p>
+              </div>
+              <div>
+                <strong>Gross Margin %</strong>
+                <p>Description: Gross margin divided by total revenue, used to evaluate profitability.</p>
+                <p>Synonyms: margin percent, profitability, profit rate</p>
+              </div>
+              <div>
+                <strong>BranchName</strong>
+                <p>Synonyms: branch, location, depot, rental location</p>
+              </div>
+              <div>
+                <strong>Category</strong>
+                <p>Synonyms: equipment category, fleet category, equipment type</p>
+              </div>
+              <div>
+                <strong>CustomerName</strong>
+                <p>Synonyms: customer, account, client</p>
+              </div>
+              <div>
+                <strong>YearMonth</strong>
+                <p>Synonyms: reporting month, period, month period</p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="question-panel reveal">
+          <h3>Natural language questions the model is prepared to answer</h3>
+          <div class="question-grid">
+            <span>What is total revenue by branch?</span>
+            <span>Show gross margin percent by equipment category.</span>
+            <span>Show utilization by equipment category.</span>
+            <span>Show rental count by month.</span>
+            <span>Show revenue by region.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="production-extensions" aria-labelledby="production-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Production Architecture</p>
+          <h2 id="production-title">Production Extensions and Architecture Possibilities</h2>
+          <p>
+            The current demo intentionally focuses on the Power BI semantic and reporting layer. In a real enterprise implementation, the same model could be extended with a scalable cloud data platform, curated gold layer, deployment pipelines, monitoring, and AI enabled analytics.
           </p>
         </div>
 
-        <div class="findings">
-          <div class="finding">
-            <span class="finding__num">01</span>
-            <h4>No major DAX bottleneck</h4>
-            <p>Query execution was lightweight across measures and visuals.</p>
-          </div>
-          <div class="finding">
-            <span class="finding__num">02</span>
-            <h4>Matrix is the heaviest visual</h4>
-            <p>Equipment Category Performance matrix carries multiple measures across many cells. Visual simplification would beat DAX rewrites here.</p>
-          </div>
-          <div class="finding">
-            <span class="finding__num">03</span>
-            <h4>KPI cards trigger separate queries</h4>
-            <p>Each card is its own query — acceptable at this scale; a candidate for measure consolidation in larger models.</p>
-          </div>
-          <div class="finding">
-            <span class="finding__num">04</span>
-            <h4>Optimize visuals before DAX</h4>
-            <p>Premature DAX rewrites would have added complexity without shifting user-visible time.</p>
-          </div>
+        <div class="production-note reveal">
+          <p>
+            This demo does not implement Direct Lake, but the semantic model design is compatible with a Fabric gold layer feeding a Direct Lake model. This demo uses a public embed, but production sharing would use authenticated Power BI Apps or secure embedding so RLS is enforced.
+          </p>
         </div>
 
-        <h3 class="h3">Production optimization toolkit</h3>
-        <ul class="tool-grid">
-          <li><strong>Performance Analyzer</strong> — first stop, every time</li>
-          <li><strong>DAX Studio</strong> — server timings, query plans</li>
-          <li><strong>VertiPaq Analyzer</strong> — model size, column cardinality</li>
-          <li><strong>Incremental refresh</strong> — large fact tables</li>
-          <li><strong>Aggregation tables</strong> — high-volume reporting</li>
-          <li><strong>Column cardinality cleanup</strong> — compression wins</li>
-          <li><strong>Visual simplification</strong> — fewer queries, faster renders</li>
-          <li><strong>Upstream SQL / dbt tuning</strong> — solve it at the source</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ===================== 08 · AI READINESS ===================== -->
-    <section class="section section--alt" id="ai">
-      <div class="container">
-        <header class="section__header">
-          <span class="section__num">08</span>
-          <h2 class="section__title">AI readiness</h2>
-          <p class="section__kicker">Copilot and Fabric data agents reward governed semantic models</p>
-        </header>
-
-        <p class="section__intro">
-          AI readiness isn't a switch you flip on Copilot. It starts with the semantic model. Hidden technical fields, certified measures, descriptions, synonyms, clean relationships, and explicit KPI definitions are what make natural-language tools answer correctly instead of guessing from raw columns.
-        </p>
-
-        <div class="ai-grid">
-          <div class="ai-card">
-            <h4>Hidden technical surface</h4>
-            <p>Keys, foreign keys, and raw fact columns are hidden so AI tools never see them as candidates.</p>
-          </div>
-          <div class="ai-card">
-            <h4>Certified business measures</h4>
-            <p>Single source of truth for revenue, margin, utilization. AI answers use the same numbers as the dashboard.</p>
-          </div>
-          <div class="ai-card">
-            <h4>Measure descriptions</h4>
-            <p>Plain-English descriptions on every KPI. <code>Total Revenue</code>: "Total revenue from non-cancelled rental transactions, including rental, service, and damage waiver revenue."</p>
-          </div>
-          <div class="ai-card">
-            <h4>Synonyms for natural language</h4>
-            <p><code>Total Revenue</code>: revenue, sales, total sales, rental sales. <code>BranchName</code>: branch, location, depot, rental location. <code>Category</code>: equipment category, fleet category, equipment type.</p>
-          </div>
-          <div class="ai-card">
-            <h4>Clean star schema</h4>
-            <p>Predictable relationships let Copilot reason about joins without a graph traversal lottery.</p>
-          </div>
-          <div class="ai-card">
-            <h4>Validated question patterns</h4>
-            <p>Natural-language questions tested against the model so business users don't hit dead-ends on day one.</p>
-          </div>
+        <div class="roadmap" aria-label="Production architecture roadmap">
+          <article class="roadmap-card reveal">
+            <span>01</span>
+            <h3>Source Ingestion</h3>
+            <p>In a production version, this could be extended by landing operational rental, branch, customer, fleet, and finance data into Fabric Data Factory, Dataflows Gen2, Azure Data Factory, SSIS, dbt, or Spark notebooks depending on platform strategy.</p>
+          </article>
+          <article class="roadmap-card reveal">
+            <span>02</span>
+            <h3>Bronze Layer</h3>
+            <p>For enterprise scale, raw ingested data could land in a Microsoft Fabric lakehouse as the bronze layer, with OneLake acting as the unified storage layer for analytics data products.</p>
+          </article>
+          <article class="roadmap-card reveal">
+            <span>03</span>
+            <h3>Silver Standardization</h3>
+            <p>Silver tables could standardize types, naming, conformed keys, deduplication rules, and data quality expectations before BI developers consume the data.</p>
+          </article>
+          <article class="roadmap-card reveal">
+            <span>04</span>
+            <h3>Gold Dimensional Model</h3>
+            <p>The gold layer could expose curated dimensional tables and facts for Power BI semantic models. Data engineers and BI developers would collaborate on curated tables, SQL endpoints, data quality rules, and gold layer schemas.</p>
+          </article>
+          <article class="roadmap-card reveal">
+            <span>05</span>
+            <h3>Power BI Semantic Model</h3>
+            <p>The same star schema, governed measures, business friendly fields, certified semantic models, descriptions, synonyms, and verified answers could become the governed reporting contract.</p>
+          </article>
+          <article class="roadmap-card reveal">
+            <span>06</span>
+            <h3>Direct Lake or Import Decision</h3>
+            <p>Direct Lake could be considered when the model sits on Fabric lakehouse or warehouse data and the goal is high performance without traditional import refresh. Import, Direct Lake, or Composite model decisions should be based on data size, latency needs, licensing, security, and performance.</p>
+          </article>
+          <article class="roadmap-card reveal">
+            <span>07</span>
+            <h3>Governed Reports and Apps</h3>
+            <p>Production sharing would use authenticated Power BI Apps, secure embedding, deployment pipelines, dev/test/prod workspaces, RLS through Entra ID or Microsoft 365 security groups, and OLS where sensitive columns or tables need to be hidden.</p>
+          </article>
+          <article class="roadmap-card reveal">
+            <span>08</span>
+            <h3>Monitoring and Adoption</h3>
+            <p>Monitoring Hub, refresh history, usage metrics, capacity metrics, service diagnostics, and Power BI REST API automation could support health checks, deployment validation, metadata extraction, refresh automation, and governance reporting.</p>
+          </article>
+          <article class="roadmap-card reveal">
+            <span>09</span>
+            <h3>AI Ready Experience</h3>
+            <p>Copilot and Fabric data agents could answer from governed definitions when the semantic model includes descriptions, synonyms, certified measures, verified answers, and AI instructions.</p>
+          </article>
         </div>
 
-        <h3 class="h3">Validated natural-language questions</h3>
-        <ul class="nl-questions">
-          <li><span>Q&amp;A</span> What is total revenue by branch?</li>
-          <li><span>Q&amp;A</span> Show gross margin percent by equipment category.</li>
-          <li><span>Q&amp;A</span> Show utilization by equipment category.</li>
-          <li><span>Q&amp;A</span> Show rental count by month.</li>
-          <li><span>Q&amp;A</span> Show revenue by region.</li>
-        </ul>
-
-        <p class="callout">
-          <strong>Bottom line:</strong> if technical fields are exposed, measures are unclear, or relationships are messy, AI tools produce confident wrong answers. The model in this case study is shaped so Copilot, Q&amp;A, and Fabric data agents lean on governed measures instead of guessing.
-        </p>
-      </div>
-    </section>
-
-    <!-- ===================== 09 · WHAT I IMPLEMENTED ===================== -->
-    <section class="section" id="implemented">
-      <div class="container">
-        <header class="section__header">
-          <span class="section__num">09</span>
-          <h2 class="section__title">What I implemented in this demo</h2>
-          <p class="section__kicker">End-to-end, verifiable in the live report</p>
-        </header>
-
-        <ul class="impl-grid">
-          <li><span class="check" aria-hidden="true">✓</span> Power Query import &amp; data type validation</li>
-          <li><span class="check" aria-hidden="true">✓</span> Star schema semantic model</li>
-          <li><span class="check" aria-hidden="true">✓</span> Marked date table &amp; time intelligence</li>
-          <li><span class="check" aria-hidden="true">✓</span> Dedicated _Measures table</li>
-          <li><span class="check" aria-hidden="true">✓</span> Reusable DAX KPIs</li>
-          <li><span class="check" aria-hidden="true">✓</span> Semantic model cleanup</li>
-          <li><span class="check" aria-hidden="true">✓</span> Business-friendly fields</li>
-          <li><span class="check" aria-hidden="true">✓</span> Executive dashboard design</li>
-          <li><span class="check" aria-hidden="true">✓</span> Dynamic region-based RLS</li>
-          <li><span class="check" aria-hidden="true">✓</span> Power BI Service publishing</li>
-          <li><span class="check" aria-hidden="true">✓</span> Performance Analyzer review</li>
-          <li><span class="check" aria-hidden="true">✓</span> AI readiness metadata</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ===================== 10 · PRODUCTION ROADMAP ===================== -->
-    <section class="section section--dark" id="roadmap">
-      <div class="container">
-        <header class="section__header section__header--dark">
-          <span class="section__num">10</span>
-          <h2 class="section__title">Production roadmap</h2>
-          <p class="section__kicker">From demo to enterprise Microsoft Fabric platform</p>
-        </header>
-
-        <p class="section__intro section__intro--dark">
-          The demo proves the thinking. Below is what the same model becomes inside an enterprise medallion architecture — what I would build, in order, against a real OneLake-backed semantic layer.
-        </p>
-
-        <ol class="roadmap">
-          <li class="roadmap__item">
-            <div class="roadmap__phase">Phase 01</div>
-            <div class="roadmap__body">
-              <h3>Data ingestion &amp; bronze</h3>
-              <p>Source systems (rental, ERP, finance) landed raw into OneLake bronze. Data Factory pipelines for batch; event-driven patterns where near-real-time matters.</p>
-            </div>
-          </li>
-          <li class="roadmap__item">
-            <div class="roadmap__phase">Phase 02</div>
-            <div class="roadmap__body">
-              <h3>Silver cleansing &amp; standardization</h3>
-              <p>Type enforcement, deduping, conformed business keys, slowly-changing dimensions. Tests at the column level. Lineage documented end-to-end.</p>
-            </div>
-          </li>
-          <li class="roadmap__item">
-            <div class="roadmap__phase">Phase 03</div>
-            <div class="roadmap__body">
-              <h3>Gold dimensional model</h3>
-              <p>Curated star schemas, conformed dimensions, business keys. Materialized lakehouse views for the highest-traffic patterns. Naming &amp; certification standards enforced.</p>
-            </div>
-          </li>
-          <li class="roadmap__item">
-            <div class="roadmap__phase">Phase 04</div>
-            <div class="roadmap__body">
-              <h3>Power BI semantic model</h3>
-              <p>Direct Lake where it fits; Import or composite where the workload justifies. Calculation groups, field parameters, reusable measure patterns. Tabular Editor + TMDL for source control.</p>
-            </div>
-          </li>
-          <li class="roadmap__item">
-            <div class="roadmap__phase">Phase 05</div>
-            <div class="roadmap__body">
-              <h3>Governance, RLS, deployment</h3>
-              <p>Entra ID-group-based RLS, OLS where columns warrant it. Workspace separation: dev / test / prod. Git integration. Deployment pipelines. Endorsement: Promoted → Certified.</p>
-            </div>
-          </li>
-          <li class="roadmap__item">
-            <div class="roadmap__phase">Phase 06</div>
-            <div class="roadmap__body">
-              <h3>Performance &amp; monitoring</h3>
-              <p>Incremental refresh on large facts. Aggregations for hot paths. Monitoring Hub, capacity metrics, refresh alerts, usage &amp; adoption tracking. Power BI REST API automation.</p>
-            </div>
-          </li>
-          <li class="roadmap__item">
-            <div class="roadmap__phase">Phase 07</div>
-            <div class="roadmap__body">
-              <h3>AI readiness &amp; data agents</h3>
-              <p>Copilot configuration, verified answers, AI instructions on the semantic model. Fabric data agents for governed natural-language analytics. Continuous evaluation of question quality.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ===================== 11 · ROLE ALIGNMENT ===================== -->
-    <section class="section" id="alignment">
-      <div class="container">
-        <header class="section__header">
-          <span class="section__num">11</span>
-          <h2 class="section__title">How this demo aligns with a Senior Power BI Developer role</h2>
-          <p class="section__kicker">Requirement → evidence in this case study</p>
-        </header>
-
-        <div class="alignment">
-          <div class="alignment__row alignment__row--head">
-            <div>Role requirement</div>
-            <div>How this demo proves it</div>
-          </div>
-          <div class="alignment__row">
-            <div><strong>Enterprise semantic models</strong></div>
-            <div>Star schema, hidden technical fields, dedicated measures table, reusable KPIs.</div>
-          </div>
-          <div class="alignment__row">
-            <div><strong>Expert DAX</strong></div>
-            <div>Financial, operational, and time-intelligence measure families. <code>DIVIDE</code>-safe ratios. Marked date table for reliable time math.</div>
-          </div>
-          <div class="alignment__row">
-            <div><strong>Performance tuning</strong></div>
-            <div>Performance Analyzer review with explicit findings and a documented production toolkit (DAX Studio, VertiPaq Analyzer, aggregations, incremental refresh).</div>
-          </div>
-          <div class="alignment__row">
-            <div><strong>Governance</strong></div>
-            <div>Dynamic RLS, hidden fields, certified measures, semantic cleanup, Power BI Service publishing.</div>
-          </div>
-          <div class="alignment__row">
-            <div><strong>Microsoft Fabric readiness</strong></div>
-            <div>Production roadmap with medallion architecture, gold layer, Direct Lake, OneLake, Entra ID-group RLS, deployment pipelines.</div>
-          </div>
-          <div class="alignment__row">
-            <div><strong>AI readiness</strong></div>
-            <div>Descriptions, synonyms, certified measures, validated natural-language question patterns for Copilot &amp; Fabric data agents.</div>
-          </div>
-          <div class="alignment__row">
-            <div><strong>Stakeholder communication</strong></div>
-            <div>Executive dashboard with clear KPI storytelling. Business-friendly metric vocabulary. Documentation written for both engineers and decision-makers.</div>
-          </div>
+        <div class="extension-grid">
+          <article class="extension-card reveal">
+            <h3>Platform Patterns</h3>
+            <p>Microsoft Fabric lakehouse, Fabric Warehouse, OneLake, SQL endpoint, medallion architecture, and a curated gold layer could be implemented as production extensions.</p>
+          </article>
+          <article class="extension-card reveal">
+            <h3>Cloud Data Warehousing</h3>
+            <p>A similar semantic model could be built on top of curated analytical data from Redshift, Snowflake, BigQuery, Databricks, Azure Synapse, PostgreSQL, SQL Server, or Fabric Warehouse.</p>
+          </article>
+          <article class="extension-card reveal">
+            <h3>Transformation Governance</h3>
+            <p>For production, dbt could define tested, documented, version controlled transformation models feeding a gold layer. Spark notebooks, Fabric Data Factory, Dataflows Gen2, ADF, or SSIS could also support scalable ELT or ETL pipelines.</p>
+          </article>
+          <article class="extension-card reveal">
+            <h3>Semantic Model Standards</h3>
+            <p>Incremental refresh could reduce refresh time for large rental history. Aggregation tables could speed executive visuals. Calculation groups could centralize YTD, MTD, YoY, and MoM logic. Field parameters could let users switch metrics or dimensions.</p>
+          </article>
+          <article class="extension-card reveal">
+            <h3>Lifecycle Discipline</h3>
+            <p>Tabular Editor could help manage calculation groups, display folders, measure formatting, descriptions, and advanced semantic model standards. TMDL and Git integration could support source control, code review, and deployment discipline.</p>
+          </article>
+          <article class="extension-card reveal">
+            <h3>Enterprise Security</h3>
+            <p>For enterprise scale, I would consider Entra ID group based RLS assignment, OLS for sensitive data, workspace discipline, certified semantic models, deployment pipelines, and operational support standards.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- ===================== 12 · ABOUT ===================== -->
-    <section class="section section--alt" id="about">
+    <section class="section" aria-labelledby="demonstrates-title">
       <div class="container">
-        <header class="section__header">
-          <span class="section__num">12</span>
-          <h2 class="section__title">Built by Mihir Trivedi</h2>
-          <p class="section__kicker">Senior Power BI Developer · Sudbury, Ontario</p>
-        </header>
+        <div class="section-heading reveal">
+          <p class="eyebrow">What This Case Study Demonstrates</p>
+          <h2 id="demonstrates-title">What This Case Study Demonstrates</h2>
+          <p>Senior BI capability across model, report, service, and story.</p>
+        </div>
 
-        <div class="about">
-          <div class="about__bio">
-            <p>
-              I'm a BI Developer and Senior Power BI Developer candidate with experience across Power BI, SQL, semantic modeling, data warehousing, dbt-curated analytical layers, Tableau, PostgreSQL, the Power Platform, and executive analytics. I've worked through the full delivery cycle — gathering requirements with finance and operations leaders, shaping dimensional models, writing the DAX, optimizing the queries, and publishing governed reporting that business consumers actually adopt.
-            </p>
-            <p>
-              This case study was built to demonstrate end-to-end thinking — not only dashboard authoring, but governed semantic modeling, secure access, performance awareness, and AI-ready metadata. It's the version of the work I would want a hiring manager or a Microsoft Fabric architect to see before our first conversation.
-            </p>
-
-            <ul class="about__certs">
-              <li>Microsoft · Power BI Data Analyst Associate (PL-300)</li>
-              <li>Microsoft · Power Platform Developer Associate (PL-400)</li>
-              <li>Microsoft · Azure Fundamentals (AZ-900)</li>
-              <li>Salesforce · Agentforce Specialist (AI-201)</li>
-            </ul>
-          </div>
-
-          <aside class="about__links">
-            <h4>Get in touch</h4>
-            <ul>
-              <li><span>Portfolio</span><a href="https://www.mihirtrivedi.tech" target="_blank" rel="noopener">mihirtrivedi.tech ↗</a></li>
-              <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/mihirtrivedigm" target="_blank" rel="noopener">/in/mihirtrivedigm ↗</a></li>
-              <li><span>Email</span><a href="mailto:mtrivedi@laurentian.ca">mtrivedi@laurentian.ca</a></li>
-              <li><span>Phone</span><a href="tel:+12493605901">+1 249-360-5901</a></li>
-            </ul>
-          </aside>
+        <div class="demonstrates-grid">
+          <article class="topic-card reveal">
+            <h3>Semantic Model Engineering</h3>
+            <p>Dimensional design, relationship cleanup, field hygiene, and model behavior that is predictable for users.</p>
+          </article>
+          <article class="topic-card reveal">
+            <h3>Governed KPI Design</h3>
+            <p>Reusable DAX measures, explicit definitions, and metric logic that can be audited and trusted.</p>
+          </article>
+          <article class="topic-card reveal">
+            <h3>Secure Analytics</h3>
+            <p>Dynamic RLS design and production awareness around authenticated sharing, group based access, and OLS.</p>
+          </article>
+          <article class="topic-card reveal">
+            <h3>Performance Awareness</h3>
+            <p>Performance Analyzer review, visual level tuning priorities, and future scale patterns.</p>
+          </article>
+          <article class="topic-card reveal">
+            <h3>AI Ready Modeling</h3>
+            <p>Semantic descriptions, synonyms, certified measures, and natural language readiness for Copilot and data agents.</p>
+          </article>
+          <article class="topic-card reveal">
+            <h3>Executive Storytelling</h3>
+            <p>A focused executive view that links revenue, profitability, utilization, branch performance, and fleet category patterns.</p>
+          </article>
+          <article class="topic-card reveal">
+            <h3>Production Thinking</h3>
+            <p>Honest extension path across Fabric, OneLake, medallion architecture, deployment pipelines, monitoring, and governance.</p>
+          </article>
+          <article class="topic-card reveal">
+            <h3>Stakeholder Communication</h3>
+            <p>A portfolio case study that translates technical implementation into business value without burying the reader.</p>
+          </article>
         </div>
       </div>
     </section>
 
+    <section class="section section-dark about" id="about" aria-labelledby="about-title">
+      <div class="container about__grid">
+        <div class="section-heading reveal">
+          <p class="eyebrow">About</p>
+          <h2 id="about-title">Built by Mihir Trivedi</h2>
+        </div>
+        <div class="about-card reveal">
+          <p>
+            Mihir Trivedi is a BI Developer and senior Power BI candidate with experience across Power BI, SQL, semantic modeling, data warehousing, Tableau, PostgreSQL, Power Platform, stakeholder reporting, and executive analytics. This project was created as a public technical case study to demonstrate how dashboards can be backed by governed semantic models, reusable metrics, secure access patterns, performance validation, and AI ready metadata.
+          </p>
+          <div class="contact-links" aria-label="Mihir Trivedi links">
+            <a href="https://www.mihirtrivedi.tech" target="_blank" rel="noopener">Portfolio</a>
+            <a href="https://linkedin.com/in/mihirtrivedigm" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:mtrivedi@laurentian.ca">Email</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- ===================== FOOTER ===================== -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <span class="footer__title">Equipment Rental Executive Dashboard</span>
-        <span class="footer__sub">Power BI portfolio demo by Mihir Trivedi · Built for demonstration and interview discussion.</span>
-      </div>
-      <div class="footer__legal">
-        <p>Synthetic dataset. No confidential information. Not affiliated with Cooper Equipment Rentals.</p>
-        <p>© <span id="year"></span> Mihir Trivedi.</p>
-      </div>
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>NorthPeak Equipment Rentals is a fictional demo company.</p>
+      <p>This portfolio project uses synthetic demo data and public Power BI embedding.</p>
+      <p>Built by Mihir Trivedi.</p>
     </div>
   </footer>
 
-  <button class="back-to-top" aria-label="Back to top" data-back-to-top>
+  <button class="back-to-top" type="button" aria-label="Back to top" data-back-to-top>
     <span aria-hidden="true">↑</span>
   </button>
 

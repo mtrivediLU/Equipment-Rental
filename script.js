@@ -1,207 +1,259 @@
-/* =========================================================================
-   Equipment Rental Executive Dashboard — Case Study
-   Interaction layer: vanilla JS, no dependencies
-   ========================================================================= */
-
 (function () {
-  'use strict';
+  "use strict";
 
-  // ---------- Helpers ----------
-  const $  = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+  const $ = (selector, context = document) => context.querySelector(selector);
+  const $$ = (selector, context = document) => Array.from(context.querySelectorAll(selector));
+  const motionAllowed = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // ---------- Footer year ----------
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  const navToggle = $(".nav-toggle");
+  const navMenu = $("#nav-menu");
 
-  // ---------- Mobile navigation toggle ----------
-  const navToggle = $('.nav__toggle');
-  const navMenu   = $('#nav-menu');
+  function closeMenu() {
+    if (!navToggle || !navMenu) return;
+    navMenu.classList.remove("is-open");
+    document.body.classList.remove("menu-open");
+    navToggle.setAttribute("aria-expanded", "false");
+    navToggle.setAttribute("aria-label", "Open navigation menu");
+  }
 
   if (navToggle && navMenu) {
-    navToggle.addEventListener('click', () => {
-      const isOpen = navMenu.classList.toggle('is-open');
-      navToggle.setAttribute('aria-expanded', String(isOpen));
+    navToggle.addEventListener("click", () => {
+      const isOpen = navMenu.classList.toggle("is-open");
+      document.body.classList.toggle("menu-open", isOpen);
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+      navToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
     });
 
-    // Close mobile menu when a link is clicked
-    $$('a', navMenu).forEach(link => {
-      link.addEventListener('click', () => {
-        if (navMenu.classList.contains('is-open')) {
-          navMenu.classList.remove('is-open');
-          navToggle.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
-
-    // Close on Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && navMenu.classList.contains('is-open')) {
-        navMenu.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
-        navToggle.focus();
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
       }
     });
   }
 
-  // ---------- Tabs (Live Dashboard / Data Source) ----------
-  $$('[data-tabs]').forEach(group => {
-    const tabs   = $$('[data-tab-target]', group);
-    const panels = $$('.tabs__panel', group);
+  $$('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const targetId = link.getAttribute("href");
+      if (!targetId || targetId === "#") return;
 
-    function activate(targetId) {
-      tabs.forEach(t => {
-        const isActive = t.dataset.tabTarget === targetId;
-        t.classList.toggle('is-active', isActive);
-        t.setAttribute('aria-selected', String(isActive));
-        t.tabIndex = isActive ? 0 : -1;
+      const target = document.querySelector(targetId);
+      if (!target) return;
+
+      event.preventDefault();
+      closeMenu();
+      target.scrollIntoView({ behavior: motionAllowed ? "smooth" : "auto", block: "start" });
+      history.pushState(null, "", targetId);
+    });
+  });
+
+  $$("[data-tabs]").forEach((tabGroup) => {
+    const buttons = $$("[data-tab-target]", tabGroup);
+    const panels = $$(".tab-panel", tabGroup);
+
+    function activateTab(button) {
+      const targetId = button.dataset.tabTarget;
+
+      buttons.forEach((item) => {
+        const isActive = item === button;
+        item.classList.toggle("is-active", isActive);
+        item.setAttribute("aria-selected", String(isActive));
+        item.tabIndex = isActive ? 0 : -1;
       });
-      panels.forEach(p => {
-        const isActive = p.id === targetId;
-        p.classList.toggle('is-active', isActive);
-        if (isActive) p.removeAttribute('hidden');
-        else p.setAttribute('hidden', '');
+
+      panels.forEach((panel) => {
+        const isActive = panel.id === targetId;
+        panel.classList.toggle("is-active", isActive);
+        if (isActive) {
+          panel.removeAttribute("hidden");
+        } else {
+          panel.setAttribute("hidden", "");
+        }
       });
     }
 
-    tabs.forEach((tab, idx) => {
-      tab.addEventListener('click', () => activate(tab.dataset.tabTarget));
-      tab.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-          e.preventDefault();
-          const dir = e.key === 'ArrowRight' ? 1 : -1;
-          const next = tabs[(idx + dir + tabs.length) % tabs.length];
-          next.focus();
-          activate(next.dataset.tabTarget);
-        }
+    buttons.forEach((button, index) => {
+      button.addEventListener("click", () => activateTab(button));
+
+      button.addEventListener("keydown", (event) => {
+        const keyMap = {
+          ArrowRight: 1,
+          ArrowDown: 1,
+          ArrowLeft: -1,
+          ArrowUp: -1
+        };
+
+        if (!(event.key in keyMap)) return;
+
+        event.preventDefault();
+        const nextIndex = (index + keyMap[event.key] + buttons.length) % buttons.length;
+        buttons[nextIndex].focus();
+        activateTab(buttons[nextIndex]);
       });
     });
   });
 
-  // ---------- Accordion (DAX section) ----------
-  $$('[data-accordion]').forEach(accordion => {
-    const triggers = $$('[data-accordion-trigger]', accordion);
+  function animateMetric(element) {
+    if (element.dataset.counted === "true") return;
+    element.dataset.counted = "true";
 
-    triggers.forEach(trigger => {
-      trigger.addEventListener('click', () => {
-        const item = trigger.closest('[data-accordion-item]');
-        if (!item) return;
-        const isOpen = item.classList.toggle('is-open');
-        trigger.setAttribute('aria-expanded', String(isOpen));
+    const target = Number(element.dataset.value || 0);
+    const decimals = Number(element.dataset.decimals || 0);
+    const prefix = element.dataset.prefix || "";
+    const suffix = element.dataset.suffix || "";
+    const duration = 1200;
+    const start = performance.now();
+
+    function render(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = target * eased;
+      element.textContent = `${prefix}${value.toFixed(decimals)}${suffix}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(render);
+      } else {
+        element.textContent = `${prefix}${target.toFixed(decimals)}${suffix}`;
+      }
+    }
+
+    if (!motionAllowed) {
+      element.textContent = `${prefix}${target.toFixed(decimals)}${suffix}`;
+      return;
+    }
+
+    requestAnimationFrame(render);
+  }
+
+  const metrics = $$(".metric-value");
+
+  if ("IntersectionObserver" in window) {
+    const metricObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        animateMetric(entry.target);
+        observer.unobserve(entry.target);
       });
-    });
-  });
+    }, { threshold: 0.45 });
 
-  // ---------- Copy code buttons ----------
-  $$('[data-copy]').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const codeBlock = btn.closest('.code')?.querySelector('pre code');
-      if (!codeBlock) return;
-      const text = codeBlock.textContent;
+    metrics.forEach((metric) => metricObserver.observe(metric));
+  } else {
+    metrics.forEach(animateMetric);
+  }
 
-      const success = () => {
-        const original = btn.textContent;
-        btn.classList.add('is-copied');
-        btn.textContent = 'Copied';
-        setTimeout(() => {
-          btn.classList.remove('is-copied');
-          btn.textContent = original;
-        }, 1600);
-      };
+  const revealTargets = $$(".reveal");
+
+  if (!motionAllowed) {
+    revealTargets.forEach((element) => element.classList.add("is-visible"));
+  } else if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px 0px -90px 0px", threshold: 0.12 });
+
+    revealTargets.forEach((element) => revealObserver.observe(element));
+  } else {
+    revealTargets.forEach((element) => element.classList.add("is-visible"));
+  }
+
+  const navLinks = $$("[data-nav]");
+  const sectionMap = navLinks
+    .map((link) => {
+      const href = link.getAttribute("href");
+      return href && href.startsWith("#") ? { link, section: document.querySelector(href) } : null;
+    })
+    .filter((item) => item && item.section);
+
+  if ("IntersectionObserver" in window && sectionMap.length) {
+    const activeObserver = new IntersectionObserver((entries) => {
+      const visibleEntries = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+      if (!visibleEntries.length) return;
+
+      const activeId = visibleEntries[0].target.id;
+      sectionMap.forEach(({ link }) => {
+        link.classList.toggle("is-active", link.getAttribute("href") === `#${activeId}`);
+      });
+    }, { rootMargin: "-24% 0px -66% 0px", threshold: 0 });
+
+    sectionMap.forEach(({ section }) => activeObserver.observe(section));
+  }
+
+  $$("[data-copy]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const code = button.closest(".code-card")?.querySelector("code");
+      if (!code) return;
+
+      const originalText = button.textContent;
+      const text = code.textContent;
+
+      function showCopied(message) {
+        button.textContent = message;
+        button.classList.add("is-copied");
+        window.setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove("is-copied");
+        }, 1500);
+      }
 
       try {
         if (navigator.clipboard && window.isSecureContext) {
           await navigator.clipboard.writeText(text);
         } else {
-          // Fallback for non-secure contexts
-          const ta = document.createElement('textarea');
-          ta.value = text;
-          ta.setAttribute('readonly', '');
-          ta.style.position = 'fixed';
-          ta.style.opacity = '0';
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand('copy');
-          document.body.removeChild(ta);
+          const textArea = document.createElement("textarea");
+          textArea.value = text;
+          textArea.setAttribute("readonly", "");
+          textArea.style.position = "fixed";
+          textArea.style.opacity = "0";
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textArea);
         }
-        success();
-      } catch (err) {
-        btn.textContent = 'Press Ctrl+C';
-        setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+        showCopied("Copied");
+      } catch (error) {
+        showCopied("Try again");
       }
     });
   });
 
-  // ---------- Back to top ----------
-  const backToTop = $('[data-back-to-top]');
+  const backToTop = $("[data-back-to-top]");
+
   if (backToTop) {
-    const onScroll = () => {
-      if (window.scrollY > 600) backToTop.classList.add('is-visible');
-      else backToTop.classList.remove('is-visible');
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    function toggleBackToTop() {
+      backToTop.classList.toggle("is-visible", window.scrollY > 720);
+    }
 
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-
-  // ---------- Scrollspy (active nav highlight) ----------
-  const navLinks = $$('[data-nav]');
-  const sectionIds = navLinks
-    .map(a => a.getAttribute('href'))
-    .filter(href => href && href.startsWith('#'))
-    .map(href => href.slice(1));
-
-  const sections = sectionIds
-    .map(id => document.getElementById(id))
-    .filter(Boolean);
-
-  if ('IntersectionObserver' in window && sections.length) {
-    const setActive = (id) => {
-      navLinks.forEach(link => {
-        const matches = link.getAttribute('href') === '#' + id;
-        link.classList.toggle('is-active', matches);
-      });
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      // Pick the entry closest to the top that is intersecting
-      const visible = entries
-        .filter(e => e.isIntersecting)
-        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-      if (visible.length) {
-        setActive(visible[0].target.id);
-      }
-    }, {
-      // Trigger when section's top crosses ~25% from the top of the viewport
-      rootMargin: '-25% 0px -65% 0px',
-      threshold: 0
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: motionAllowed ? "smooth" : "auto" });
     });
 
-    sections.forEach(s => observer.observe(s));
+    window.addEventListener("scroll", toggleBackToTop, { passive: true });
+    toggleBackToTop();
   }
 
-  // ---------- Reveal on scroll ----------
-  // Only enabled where IntersectionObserver and motion-allowed
-  const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (motionOK && 'IntersectionObserver' in window) {
-    const targets = $$(
-      '.section__header, .decision, .ai-card, .data-card, .finding, .impl-grid li, .roadmap__item, .alignment__row:not(.alignment__row--head)'
-    );
-    targets.forEach(el => el.classList.add('reveal'));
+  if (motionAllowed) {
+    const shapes = $$(".float-shape");
+    let ticking = false;
 
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          revealObserver.unobserve(entry.target);
-        }
+    function updateShapes() {
+      const scrollY = window.scrollY;
+      shapes.forEach((shape, index) => {
+        const direction = index % 2 === 0 ? 1 : -1;
+        shape.style.setProperty("--parallax-y", `${scrollY * 0.035 * direction}px`);
       });
-    }, { rootMargin: '0px 0px -80px 0px', threshold: 0.1 });
+      ticking = false;
+    }
 
-    targets.forEach(el => revealObserver.observe(el));
+    window.addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateShapes);
+    }, { passive: true });
   }
-
 })();
